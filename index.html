@@ -1,57 +1,42 @@
 ---
-layout: default
-category: about
-title: Liu Heng's homepage
-description: I am Liu Heng, a Computer Vision Algorithm Engineer in Baidu. My research interests cover large-scale image retrieval, approximate nearest neighbor search, content-based video copy detection.
+layout: page
+description: "我干了什么 究竟拿了时间换了什么"
 ---
 
-<section class="about-me inner">
-  <h1>
-    <div class="book-me">
-      <a class="btn btn-lg" href="/cn/">Chinese</a>
-    </div>
-    <span class="hello">
-      <em>Job</em>
-      <small>available in <a href="https://home.baidu.com//">Baidu</a>. If you are an experienced Compute Vision engineer. Send your resume to me.
-    </span>
-  </h1>
+{% for post in paginator.posts %}
+<div class="post-preview">
+    <a href="{{ post.url | prepend: site.baseurl }}">
+        <h2 class="post-title">
+            {{ post.title }}
+        </h2>
+        {% if post.subtitle %}
+        <h3 class="post-subtitle">
+            {{ post.subtitle }}
+        </h3>
+        {% endif %}
+        <div class="post-content-preview">
+            {{ post.content | strip_html | truncate:200 }}
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by {% if post.author %}{{ post.author }}{% else %}{{ site.title }}{% endif %} on {{ post.date | date: "%B %-d, %Y" }}
+    </p>
+</div>
+<hr>
+{% endfor %}
 
-  <blockquote>
-  <p>
-    There is something inside, that they can't get to, that they can't touch. That's yours.
-  </p>
-  </blockquote>
-
-  <p>
-    I am <a href="/"><span itemprop="name">Liu Heng</span></a>, an Computer Vision Algorithm Engineer in <a href="https://www.baidu.com/">baidu </a>. I completed Master's degree in <a href="http://english.ucas.ac.cn/Pages/default.aspx"><strong>University of Chinese Academy of Sciences</strong></a> on June 24, 2018 and earned Bachelor's degree in computer science and Technology at <a href="http://www.cqut.edu.cn//">Chongqing University of Technology</a>  on July 1，2015.
-  </p>
-
-  <p>
-    My research interests cover <strong>Content-based Image Retrieval</strong> (more than five years experience), <strong>Approximate Nearest Neighbor Search</strong>, <strong>Content-based Video Copy Detection</strong> and <strong>Video Classification</strong>.
-  </p>
-
-  <p>
-    I support open source (@<a href="https://github.com/liuheng0111">liuheng0111<i class="icon-github"></i></a>), love coding. In my free time, I dive into writing, losing in thinking, reading <a href="https://github.com/willard-yuan">books</a> to enrich themselves.
-  </p>
-
-</section>
-
-<section class="inner">
-  <div class="post-recents-in-index">
-    <strong>Recent blog posts</strong>
-  </div>
-  <blockquote>
-    <ul>
-      {% for post in site.posts limit:3 %}
-      <li class="post-list-in-index">
-      <small class="post-list-date-in-index">{{ post.date | date_to_string }}</small><a  href="{{ site.url }}{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-      </li>
-      {% endfor %}
-    </ul>
-  </blockquote>
-  <p>
-    If you are interested in me, you can access to my English <a href="/LiuHeng_resume.pdf"><strong>resume</strong></a> for more details.
-  </p>
-</section>
-
-<!--<a href="https://github.com/willard-yuan/willard-yuan.github.io"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a>-->
+<!-- Pager -->
+{% if paginator.total_pages > 1 %}
+<ul class="pager">
+    {% if paginator.previous_page %}
+    <li class="previous">
+        <a href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}">&larr; Newer Posts</a>
+    </li>
+    {% endif %}
+    {% if paginator.next_page %}
+    <li class="next">
+        <a href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}">Older Posts &rarr;</a>
+    </li>
+    {% endif %}
+</ul>
+{% endif %}
